@@ -136,16 +136,17 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 }
 
 async function sendMessage() {
-  const userMessage = userInputField.value.trim();
-  if (!userMessage) return;
-
-  const response = await fetch('https://digimon-api-u2n3.onrender.com/ask', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt: userMessage, form: 'Agumon' })
-  });
-
-  const data = await response.json();
-  chatResponse = data.response || "Error: " + data.error;
-  userInputField.value = '';
-}
+    const userMessage = userInputField.value.trim();
+    if (!userMessage) return;
+  
+    const response = await fetch('https://digimon-api-u2n3.onrender.com/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: userMessage, form: 'Agumon' })
+    });
+  
+    const data = await response.json();
+    chatResponse = data.response || "Error: " + data.error;
+    userInputField.value = '';
+    drawScene(); // <-- add this line to trigger redraw
+  }
